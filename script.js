@@ -1,27 +1,26 @@
-const form = document.getElementById('votingForm');
-        const ageInput = document.getElementById('age');
-        const nameInput = document.getElementById('name');
+document.getElementById("voting-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const age = parseInt(document.getElementById("age").value);
 
-        form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent page reload
-
-    const userName = nameInput.value.trim();
-    const userAge = parseInt(ageInput.value);
-
-    if (!userName || isNaN(userAge)) {
-        alert('Please enter valid details'); // Removed period to match Cypress test
+    if (name === "" || age === NaN) {
+        alert("Please enter valid details.");
         return;
     }
 
-    new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
-            if (userAge > 18) {
-                resolve(Welcome, ${userName}. You can vote.);
+            if (age >= 18) {
+                resolve(name);
             } else {
-                reject(Oh sorry ${userName}. You aren't old enough.);
+                reject(name);
             }
         }, 4000);
-    })
-    .then((message) => alert(message))
-    .catch((error) => alert(error));
+    });
+
+    promise.then((name) => {
+        alert(`Welcome, ${name}. You can vote.`);
+    }).catch((name) => {
+        alert(`Oh sorry ${name}. You aren't old enough.`);
+    });
 });
